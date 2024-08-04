@@ -16,10 +16,10 @@ pipeline {
 			}}
 			stage('podman build'){
 		    steps {
-			sh 'podman build -f Dockerfile -t kunalsh/image45 .'
+			sh 'podman build -f Dockerfile -t kunalsh/image45'
 			}}
 			stage('Container creation'){
 		    steps {
-			sh 'podman  run -it -d --name=container_pipe kunalsh/image45 /bin/bash'
+			sh 'podman  run -it -d --name=container_pipe kunalsh/image45 bash '
 			}}	
 }}
