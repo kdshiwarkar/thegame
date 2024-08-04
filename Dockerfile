@@ -23,9 +23,9 @@ RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.
 RUN wget https://download.oracle.com/java/22/latest/jdk-22_linux-x64_bin.tar.gz
 
 # extract tar file 
-RUN tar -xvf apache-tomcat-9.0.91.tar.gz .
-RUN tar -xvf apache-maven-3.9.8-bin.tar.gz . 
-RUN tar -xvf jdk-22_linux-x64_bin.tar.gz .
+RUN tar -xvf apache-tomcat-9.0.91.tar.gz 
+RUN tar -xvf apache-maven-3.9.8-bin.tar.gz  
+RUN tar -xvf jdk-22_linux-x64_bin.tar.gz 
 
 # move file into /opt/download/
 RUN mv -f apache-tomcat-9.0.91 /opt/download/
