@@ -13,16 +13,16 @@ RUN apt-get update && \
     docker.io \
     && apt-get clean
 
-# Install Maven
+# Install Maven with retry logic
 RUN mkdir -p /usr/local/maven && \
-    curl -o /tmp/apache-maven-3.9.7-bin.tar.gz \
+    curl --retry 5 --retry-delay 10 -o /tmp/apache-maven-3.9.7-bin.tar.gz \
     https://downloads.apache.org/maven/maven-3/3.9.7/binaries/apache-maven-3.9.7-bin.tar.gz && \
     tar -xzf /tmp/apache-maven-3.9.7-bin.tar.gz -C /usr/local/maven --strip-components=1 && \
     ln -s /usr/local/maven/bin/mvn /usr/bin/mvn
 
 # Install Tomcat
 RUN mkdir -p /usr/local/tomcat && \
-    curl -o /tmp/apache-tomcat-9.0.89.tar.gz \
+    curl --retry 5 --retry-delay 10 -o /tmp/apache-tomcat-9.0.89.tar.gz \
     https://downloads.apache.org/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz && \
     tar -xzf /tmp/apache-tomcat-9.0.89.tar.gz -C /usr/local/tomcat --strip-components=1
 
@@ -46,5 +46,6 @@ EXPOSE 8080
 
 # Run Tomcat when the container starts
 CMD ["catalina.sh", "run"]
+
 
 
