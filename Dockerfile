@@ -1,5 +1,8 @@
 FROM centos:latest
 
+# Update DNS resolver configuration
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
 # Install Maven
 RUN yum install -y maven
 
