@@ -4,7 +4,7 @@ FROM centos:latest
 RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 # Install Maven
-RUN yum install -y maven
+RUN yum install -y --disablerepo=* --enablerepo=base maven
 
 # Install Tomcat
 RUN yum install -y tomcat
