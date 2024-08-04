@@ -17,14 +17,14 @@ pipeline {
                 sh 'cp target/thegame.war /home/kunalshiwarkar/Documents/Devops_software/tar/apache-tomcat-9.0.89/webapps'
             }
         }
-        stage('podman build') {
+        stage('docker build') {
             steps {
-                sh 'podman build -f Dockerfile -t kunalsh/image45'
+                sh 'docker build -t kunalsh/image45 .'
             }
         }
         stage('Container creation') {
             steps {
-                sh 'podman run -it -d --name=container_pipe kunalsh/image45 bash'
+                sh 'docker run -it -d --name=container_pipe kunalsh/image45 /bin/bash'
             }
         }
     }
