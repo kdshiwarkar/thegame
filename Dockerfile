@@ -32,8 +32,8 @@ ENV PATH $JAVA_HOME/bin:$PATH
 ENV M2_HOME /opt/download/apache-maven-3.9.8
 
 # Run Maven install
-RUN export JAVA_HOME=/opt/download/jdk-22_linux-x64_bin
 RUN $JAVA_HOME/bin/java -version
+RUN $JAVA_HOME/bin/javac -version
 RUN /opt/download/apache-maven-3.9.8/bin/mvn install
 
 # ADD war file 
