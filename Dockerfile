@@ -36,7 +36,7 @@ COPY jdk-22.0.2 /opt/download/
 RUN  /home/kunalshiwarkar/Documents/Devops_software/tar/apache-maven-3.9.8/bin/mvn install
 
 # copy war file 
-COPY target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
+COPY target/thegame.war /home/kunalshiwarkar/Documents/Devops_software/tar/apache-tomcat-9.0.91/webapps/
 
 #Set environment variables
 ENV JAVA_HOME /opt/download/jdk-22.0.2
