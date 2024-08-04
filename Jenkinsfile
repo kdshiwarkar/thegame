@@ -12,7 +12,7 @@ pipeline {
 	                 }}
 		stage('Deployment'){
 		    steps {
-			sh 'cp target/thegame.war '/home/kunalshiwarkar/Documents/Devops_software/tar/apache-tomcat-9.0.89/webapps'
+			sh 'cp target/thegame.war /home/kunalshiwarkar/Documents/Devops_software/tar/apache-tomcat-9.0.89/webapps'
 			}}
 			stage('podman build'){
 		    steps {
