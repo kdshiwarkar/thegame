@@ -1,53 +1,56 @@
-# Use the official Ubuntu image as the base
-FROM ubuntu:20.04
+#use the image
+FROM ubuntu:latest
+MAINTAINER kdshiwarkar@gmail.com
 
-# Set environment variables
-ENV DEBIAN_FRONTEND=noninteractive
+# create directory 
+WORKDIR /opt/download/
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y \
-    openjdk-11-jdk \
-    curl \
-    docker.io \
-    && apt-get clean
+# update package list
+RUN apt-get update
 
-# Install Maven
-RUN mkdir -p /usr/local/maven && \
-    curl --retry 5 --retry-delay 10 -o /tmp/apache-maven-3.9.7-bin.tar.gz \
-    https://downloads.apache.org/maven/maven-3/3.9.7/binaries/apache-maven-3.9.7-bin.tar.gz && \
-    tar -xzf /tmp/apache-maven-3.9.7-bin.tar.gz -C /usr/local/maven --strip-components=1
+# upgrade package list
+RUN apt-get upgrade -y
 
-# Add Maven to the PATH
-ENV MAVEN_HOME=/usr/local/maven
-ENV PATH=$MAVEN_HOME/bin:$PATH
+# install packages
+RUN apt-get install -y git
+RUN apt-get install -y vim
+RUN apt-get update
+RUN apt-get install -y wget
 
-# Install Tomcat
-RUN mkdir -p /usr/local/tomcat && \
-    curl --retry 5 --retry-delay 10 -o /tmp/apache-tomcat-9.0.89.tar.gz \
-    https://downloads.apache.org/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz && \
-    tar -xzf /tmp/apache-tomcat-9.0.89.tar.gz -C /usr/local/tomcat --strip-components=1
+# download tomcat,maven,java
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz
+RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.tar.gz
+RUN wget https://download.oracle.com/java/22/latest/jdk-22_linux-x64_bin.tar.gz
 
-# Set environment variables for Tomcat
-ENV CATALINA_HOME=/usr/local/tomcat
+# extract tar file 
+RUN tar -xvf apache-tomcat-9.0.91.tar.gz
+RUN tar -xvf apache-maven-3.9.8-bin.tar.gz
+RUN tar -xvf jdk-22_linux-x64_bin.tar.gz
 
-# Copy your application source code into the image
-COPY . /app
+# copy file into /opt/download/
+COPY apache-tomcat-9.0.91 /opt/download/
+COPY apache-maven-3.9.8 /opt/download/
+COPY jdk-22.0.2 /opt/download/
 
-# Set working directory
-WORKDIR /app
+# Run Maven install
+RUN  /opt/download/apache-maven-3.9.8/bin/mvn install
 
-# Run Maven build
-RUN mvn install
+# copy war file 
+COPY target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
 
-# Copy the WAR file to Tomcat's webapps directory
-RUN cp target/thegame.war $CATALINA_HOME/webapps
+#Set environment variables
+ENV JAVA_HOME /opt/download/jdk-22.0.2
+ENV M2_HOME /opt/download/apache-maven-3.9.8
+ENV PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
 
-# Expose Tomcat's port
-EXPOSE 8080
+# Start Tomcat on container startup
+CMD ["/opt/download/apache-tomcat-9.0.91/bin/startup.sh"]
 
-# Run Tomcat when the container starts
-CMD ["catalina.sh", "run"]
+
+
+
+
+
 
 
 
