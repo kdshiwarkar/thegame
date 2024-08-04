@@ -11,7 +11,8 @@ RUN apt-get update
 # upgrade package list
 RUN apt-get -y upgrade
 
-# install packages
+# install package
+RUN apt-get install -y git
 RUN apt-get install -y vim
 RUN apt-get update
 RUN apt-get install -y wget
