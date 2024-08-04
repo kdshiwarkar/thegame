@@ -27,11 +27,6 @@ RUN tar -xvf apache-tomcat-9.0.91.tar.gz
 RUN tar -xvf apache-maven-3.9.8-bin.tar.gz  
 RUN tar -xvf jdk-22_linux-x64_bin.tar.gz 
 
-# move file into /opt/download/
-RUN mv -f apache-tomcat-9.0.91 /opt/download/
-RUN mv -f apache-maven-3.9.8 /opt/download/
-RUN mv -f jdk-22.0.2 /opt/download/
-
 # Run Maven install
 RUN  /opt/download/apache-maven-3.9.8/bin/mvn install
 
