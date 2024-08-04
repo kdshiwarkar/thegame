@@ -1,4 +1,3 @@
-#use the image
 FROM ubuntu:latest
 MAINTAINER kdshiwarkar@gmail.com
 
@@ -27,16 +26,16 @@ RUN tar -xvf apache-tomcat-9.0.91.tar.gz
 RUN tar -xvf apache-maven-3.9.8-bin.tar.gz  
 RUN tar -xvf jdk-22_linux-x64_bin.tar.gz 
 
-# Run Maven install
-RUN  /opt/download/apache-maven-3.9.8/bin/mvn install
-
-# ADD war file 
-COPY target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
-
-#Set environment variables
+# Set environment variables
 ENV JAVA_HOME /opt/download/jdk-22_linux-x64_bin
 ENV PATH $JAVA_HOME/bin:$PATH
 ENV M2_HOME /opt/download/apache-maven-3.9.8
+
+# Run Maven install
+RUN JAVA_HOME=/opt/download/jdk-22_linux-x64_bin /opt/download/apache-maven-3.9.8/bin/mvn install
+
+# ADD war file 
+COPY target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
 
 # Start Tomcat on container startup
 CMD ["/opt/download/apache-tomcat-9.0.91/bin/startup.sh"]
