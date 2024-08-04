@@ -28,7 +28,7 @@ RUN tar -xvf apache-maven-3.9.8-bin.tar.gz
 RUN tar -xvf jdk-22_linux-x64_bin.tar.gz
 
 # copy from local terminal to /opt/download
-COPY /home/kunalshiwarkar/thegame/* /opt/download/
+COPY /home/kunalshiwarkar/.jenkins/workspace/thegame/* /opt/download/
 
 # copy file into /opt/download/
 COPY apache-tomcat-9.0.91 /opt/download/
