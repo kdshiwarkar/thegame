@@ -1,17 +1,16 @@
-# Use the official Maven image as the base
-FROM maven:3.9.7-jdk-11
+FROM centos:latest
 
-# Set the working directory to /app
-WORKDIR /app
+# Install Maven
+RUN yum install -y maven
 
-# Copy the Tomcat executable to the container
-COPY apache-tomcat-9.0.89 /app/apache-tomcat-9.0.89
+# Install Tomcat
+RUN yum install -y tomcat
 
-# Copy the thegame.war file to the Tomcat webapps directory
-COPY target/thegame.war /app/apache-tomcat-9.0.89/webapps/
+# Copy the war file to the Tomcat webapps directory
+COPY target/thegame.war /usr/share/tomcat/webapps/
 
 # Expose the Tomcat port
 EXPOSE 8080
 
-# Set the default command to run when the container starts
-CMD ["apache-tomcat-9.0.89/bin/catalina.sh", "run"]
+# Run Tomcat when the container starts
+CMD ["catalina.sh", "run"]
