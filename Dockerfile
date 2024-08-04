@@ -33,7 +33,7 @@ COPY apache-maven-3.9.8 /opt/download/
 COPY jdk-22.0.2 /opt/download/
 
 # Run Maven install
-RUN  /opt/download/apache-maven-3.9.8/bin/mvn install
+RUN  /home/kunalshiwarkar/Documents/Devops_software/tar/apache-maven-3.9.8/bin/mvn install
 
 # copy war file 
 COPY target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
