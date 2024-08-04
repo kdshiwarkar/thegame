@@ -9,10 +9,9 @@ WORKDIR /opt/download/
 RUN apt-get update
 
 # upgrade package list
-RUN apt-get upgrade -y
+RUN apt-get -y upgrade
 
 # install packages
-RUN apt-get install -y git
 RUN apt-get install -y vim
 RUN apt-get update
 RUN apt-get install -y wget
