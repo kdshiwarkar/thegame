@@ -1,17 +1,17 @@
-# Use an official Ubuntu image as the base
+# # Use an official Ubuntu image as the base
 FROM ubuntu:latest
 
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy the .war file from the target directory
+# Copy the.war file from the target directory
 COPY target/thegame.war /app/
 
-# Install Apache Tomcat
-RUN apt-get update && apt-get install -y tomcat9
+# Install Tomcat 8.5
+RUN apt-get update && apt-get install -y tomcat8.5
 
-# Configure Tomcat to use the .war file
-RUN cp /app/thegame.war /var/lib/tomcat9/webapps/
+# Configure Tomcat to use the.war file
+RUN cp /app/thegame.war /var/lib/tomcat8.5/webapps/
 
 # Expose the Tomcat port
 EXPOSE 8080
