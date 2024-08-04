@@ -29,16 +29,16 @@ RUN tar -xvf jdk-22_linux-x64_bin.tar.gz
 
 
 
-# copy file into /opt/download/
-COPY apache-tomcat-9.0.91 /opt/download/
-COPY apache-maven-3.9.8 /opt/download/
-COPY jdk-22.0.2 /opt/download/
+# ADD file into /opt/download/
+ADD apache-tomcat-9.0.91 /opt/download/
+ADD apache-maven-3.9.8 /opt/download/
+ADD jdk-22.0.2 /opt/download/
 
 # Run Maven install
 RUN  /opt/download/apache-maven-3.9.8/bin/mvn install
 
 # ADD war file 
-ADD /home/kunalshiwarkar/.jenkins/workspace/thegame/target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
+COPY target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
 
 #Set environment variables
 ENV JAVA_HOME /opt/download/jdk-22.0.2
