@@ -8,17 +8,19 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y \
     openjdk-11-jdk \
-    maven \
     curl \
     docker.io \
     && apt-get clean
 
-# Install Maven with retry logic
+# Install Maven
 RUN mkdir -p /usr/local/maven && \
     curl --retry 5 --retry-delay 10 -o /tmp/apache-maven-3.9.7-bin.tar.gz \
     https://downloads.apache.org/maven/maven-3/3.9.7/binaries/apache-maven-3.9.7-bin.tar.gz && \
-    tar -xzf /tmp/apache-maven-3.9.7-bin.tar.gz -C /usr/local/maven --strip-components=1 && \
-    ln -s /usr/local/maven/bin/mvn /usr/bin/mvn
+    tar -xzf /tmp/apache-maven-3.9.7-bin.tar.gz -C /usr/local/maven --strip-components=1
+
+# Add Maven to the PATH
+ENV MAVEN_HOME=/usr/local/maven
+ENV PATH=$MAVEN_HOME/bin:$PATH
 
 # Install Tomcat
 RUN mkdir -p /usr/local/tomcat && \
@@ -46,6 +48,7 @@ EXPOSE 8080
 
 # Run Tomcat when the container starts
 CMD ["catalina.sh", "run"]
+
 
 
 
