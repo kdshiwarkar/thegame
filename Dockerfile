@@ -1,16 +1,17 @@
-FROM centos:latest
+# Use an official Ubuntu image as the base
+FROM ubuntu:latest
 
-# Update DNS resolver configuration
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+# Set the working directory to /app
+WORKDIR /app
 
-# Install Maven
-RUN yum install -y --disablerepo=* --enablerepo=base maven
+# Copy the .war file from the target directory
+COPY target/thegame.war /app/
 
-# Install Tomcat
-RUN yum install -y tomcat
+# Install Apache Tomcat
+RUN apt-get update && apt-get install -y tomcat9
 
-# Copy the war file to the Tomcat webapps directory
-COPY target/thegame.war /usr/share/tomcat/webapps/
+# Configure Tomcat to use the .war file
+RUN cp /app/thegame.war /var/lib/tomcat9/webapps/
 
 # Expose the Tomcat port
 EXPOSE 8080
