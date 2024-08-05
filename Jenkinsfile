@@ -27,5 +27,15 @@ pipeline {
                 sh 'docker run -it -d --name=container_pipe kunalsh/image45 /bin/bash'
             }
         }
+         stage('Build Project') {
+            steps {
+                sh '/opt/download/apache-maven-3.9.8/bin/mvn install'
+            }
+        }
+        stage('Deployment project') {
+            steps {
+                sh 'cp /home/kunalshiwarkar/.jenkins/workspace/thegame/target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps'
+            }
+        }
     }
 }
