@@ -27,17 +27,9 @@ RUN tar -xvf apache-maven-3.9.8-bin.tar.gz
 RUN tar -xvf jdk-22_linux-x64_bin.tar.gz 
 
 # Set environment variables
-ENV JAVA_HOME /opt/download/jdk-22_linux-x64_bin
-ENV PATH $JAVA_HOME/bin:$PATH
+ENV JAVA_HOME /opt/download/jdk-22.0.2
 ENV M2_HOME /opt/download/apache-maven-3.9.8
-
-# Run Maven install
-RUN $JAVA_HOME/bin/java -version
-RUN $JAVA_HOME/bin/javac -version
-RUN /opt/download/apache-maven-3.9.8/bin/mvn install
-
-# ADD war file 
-COPY target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps/
+ENV PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
 
 # Start Tomcat on container startup
 CMD ["/opt/download/apache-tomcat-9.0.91/bin/startup.sh"]
