@@ -29,7 +29,7 @@ pipeline {
         }
          stage('Build Project') {
             steps {
-                sh '/opt/download/apache-maven-3.9.8/bin/mvn install'
+                sh '/$M2_HOME/bin/mvn install'
             }
         }
         stage('Deployment project') {
