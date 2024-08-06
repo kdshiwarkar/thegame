@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Container creation') {
             steps {
-                sh 'docker run -it -d --name=container_pipe kunalsh/image45 /bin/bash'
+                sh 'docker run -it -d --name=kunalcont kunalsh/image45 /bin/bash'
             }
         }
          stage('Build Project') {
