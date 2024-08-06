@@ -35,5 +35,8 @@ ENV PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
 # Create webapps directory
 RUN mkdir -p /opt/download/apache-tomcat-9.0.91/webapps
 
+# Expose port 8080
+EXPOSE 8080
+
 # Start Tomcat on container startup
 CMD ["/opt/download/apache-tomcat-9.0.91/bin/startup.sh"]
