@@ -1,4 +1,5 @@
 FROM ubuntu:latest
+
 MAINTAINER kdshiwarkar@gmail.com
 
 # create directory 
@@ -30,6 +31,9 @@ RUN tar -xvf jdk-22_linux-x64_bin.tar.gz
 ENV JAVA_HOME /opt/download/jdk-22.0.2
 ENV M2_HOME /opt/download/apache-maven-3.9.8
 ENV PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+
+# Create webapps directory
+RUN mkdir -p /opt/download/apache-tomcat-9.0.91/webapps
 
 # Start Tomcat on container startup
 CMD ["/opt/download/apache-tomcat-9.0.91/bin/startup.sh"]
