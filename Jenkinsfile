@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Container creation') {
             steps {
-                sh 'docker run -it -d --name=kunalcont8 -p 8080:8080 kunalsh/image8 /bin/bash'
+                sh 'docker run -it -d --name=kunalcont8 -p 8081:8080 kunalsh/image8 /bin/bash'
             }
         }
          stage('Copy war file to container') {
