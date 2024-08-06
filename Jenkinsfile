@@ -19,17 +19,17 @@ pipeline {
        // }
         stage('docker build') {
             steps {
-                sh 'docker build -t kunalsh/image8 .'
+                sh 'docker build -t kunalsh/image9 .'
             }
         }
         stage('Container creation') {
             steps {
-                sh 'docker run -it -d --name=kunalcont8 -p 8081:8080 kunalsh/image8 /bin/bash'
+                sh 'docker run -it -d --name=kunalcont9 -p 8082:8080 kunalsh/image9 /bin/bash'
             }
         }
          stage('Copy war file to container') {
             steps {
-              sh 'docker cp /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war kunalcont8:/opt/download/apache-tomcat-9.0.91/webapps'
+              sh 'docker cp /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war kunalcont9:/opt/download/apache-tomcat-9.0.91/webapps'
          }
         }
     }
