@@ -24,12 +24,12 @@ pipeline {
         }
         stage('Container creation') {
             steps {
-                sh 'docker run -it -d --name=kunalcont10 -p 8080:8080 kunalsh/image10 /bin/bash'
+                sh 'docker run -it -d --name=kunalcont11 -p 1102:8080 kunalsh/image10 /bin/bash'
             }
         }
          stage('Copy war file to container') {
             steps {
-              sh 'docker cp /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war kunalcont10:/opt/download/apache-tomcat-9.0.91/webapps'
+              sh 'docker cp /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war kunalcont11:/opt/download/apache-tomcat-9.0.91/webapps'
          }
         }
     }
