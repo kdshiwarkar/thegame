@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Deployment') {
             steps {
-                sh 'cp target/thegame.war /home/kunalshiwarkar/Documents/Devops_software/tar/apache-tomcat-9.0.89/webapps'
+                sh 'cp target/thegame.war /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war'
             }
         }
         stage('docker build') {
@@ -27,14 +27,9 @@ pipeline {
                 sh 'docker run -it -d --name=kunalcont kunalsh/image45 /bin/bash'
             }
         }
-         stage('Build Project') {
+        stage('Copy war file to container') {
             steps {
-                sh '/$M2_HOME/bin/mvn install'
-            }
-        }
-        stage('Deployment project') {
-            steps {
-                sh 'cp /home/kunalshiwarkar/.jenkins/workspace/thegame/target/thegame.war /opt/download/apache-tomcat-9.0.91/webapps'
+                sh 'docker cp /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war kunalcont:/opt/download/apache-tomcat-9.0.91/webapps'
             }
         }
     }
