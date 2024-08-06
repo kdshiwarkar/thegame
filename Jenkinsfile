@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh '/home/kunalshiwarkar/Documents/Devops_software/tar/apache-maven-3.9.7/bin/mvn install'
+                sh 'mvn install'
             }
         }
         stage('Deployment') {
@@ -24,12 +24,12 @@ pipeline {
         }
         stage('Container creation') {
             steps {
-                sh 'docker run -it -d --name=kunalcont4 kunalsh/image45 /bin/bash'
+                sh 'docker run -it -d --name=kunalcont5 kunalsh/image45 /bin/bash'
             }
         }
         stage('Copy war file to container') {
             steps {
-                sh 'docker cp /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war kunalcont4:/opt/download/apache-tomcat-9.0.91/webapps'
+                sh 'docker cp /home/kunalshiwarkar/.jenkins/workspace/thegame/thegame.war kunalcont5:/opt/download/apache-tomcat-9.0.91/webapps'
             }
         }
     }
